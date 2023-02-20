@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li><a href="#" onclick="loadDoc('inicio.html')">inicio</a></li>
+        <li><a href="#" onclick="loadDoc('acerca.html')">acerca</a></li>
+        <li><a href="#" onclick="loadDoc('contacto.html')">contacto</a></li>
+    </ul>
+
+    <main>
+        <div id="demo"></div>
+    </main>
+
+    <script>
+        function loadDoc(param) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("demo").innerHTML =
+              this.responseText;
+            }
+          };
+          xhttp.open("GET", param, true);
+          xhttp.send();
+        }
+        </script>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hola SPA Fetch</title>
+  <style>
+     ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    display: inline;
+  }
+  </style>
+ 
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#inicio">inicio</a></li>
+        <li><a href="#acerca">acerca de</a></li>
+        <li><a href="#contacto">contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido">-->
+    <!--Aquí se cargara el contenido de la página-->
+  <!--</main>
+
+  <footer><p>Derechos reservados 2023</p></footer>
+  <script src="fetch.js"></script>
+</body>
+</html> -->
