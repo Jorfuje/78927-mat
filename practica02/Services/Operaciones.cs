@@ -14,10 +14,6 @@ namespace WSDL.operaciones
         {
             string msj = "Hola " + nombre;
             personNames.Add(nombre);
-            foreach(string item in personNames)
-            {
-                Console.WriteLine(item);
-            }
             return msj; 
             
             
