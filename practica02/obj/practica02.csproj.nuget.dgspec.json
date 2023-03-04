@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/jorge/Github/78927-mat/practica02/practica02.csproj": {}
+    "/home/jorfuje/Github/78927-mat/practica02/practica02.csproj": {}
   },
   "projects": {
-    "/home/jorge/Github/78927-mat/practica02/practica02.csproj": {
+    "/home/jorfuje/Github/78927-mat/practica02/practica02.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/jorge/Github/78927-mat/practica02/practica02.csproj",
+        "projectUniqueName": "/home/jorfuje/Github/78927-mat/practica02/practica02.csproj",
         "projectName": "practica02",
-        "projectPath": "/home/jorge/Github/78927-mat/practica02/practica02.csproj",
-        "packagesPath": "/home/jorge/.nuget/packages/",
-        "outputPath": "/home/jorge/Github/78927-mat/practica02/obj/",
+        "projectPath": "/home/jorfuje/Github/78927-mat/practica02/practica02.csproj",
+        "packagesPath": "/home/jorfuje/.nuget/packages/",
+        "outputPath": "/home/jorfuje/Github/78927-mat/practica02/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/jorge/.nuget/NuGet/NuGet.Config"
+          "/home/jorfuje/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
