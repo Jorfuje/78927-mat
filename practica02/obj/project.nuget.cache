@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Jnq6hRtouZM5/w0EPfaSb4Z1Jo94ajgrVxgXyH9BLjiGFZnNY8XUTHNXCYeqXHynhyRkTi1p7IlZ8Ywz7z14Kg==",
+  "dgSpecHash": "dfT1pipLCzgFGcWHcyQyYyhZRBkbpzkC5yjEogp2iw0eOkcBjRix0/+8wgkXL+gnqG8qysVVN9cBNhPr2Z2XkQ==",
   "success": true,
-  "projectFilePath": "/home/jorfuje/Github/78927-mat/practica02/practica02.csproj",
+  "projectFilePath": "/home/jorfuje/Documentos/Github/78927-mat/practica02/practica02.csproj",
   "expectedPackageFiles": [
     "/home/jorfuje/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/home/jorfuje/.nuget/packages/microsoft.win32.systemevents/4.7.0/microsoft.win32.systemevents.4.7.0.nupkg.sha512",
