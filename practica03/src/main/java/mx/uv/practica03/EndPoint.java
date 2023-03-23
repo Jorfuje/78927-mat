@@ -13,37 +13,72 @@ import https.t4is_uv_mx.saludos.BuscarRequest;
 import https.t4is_uv_mx.saludos.BuscarResponse;
 import https.t4is_uv_mx.saludos.EliminarRequest;
 import https.t4is_uv_mx.saludos.EliminarResponse;
+import https.t4is_uv_mx.saludos.MostrarRequest;
 import https.t4is_uv_mx.saludos.MostrarResponse;
 import https.t4is_uv_mx.saludos.SaludarRequest;
 import https.t4is_uv_mx.saludos.SaludarResponse;
 
 @Endpoint
 public class EndPoint {
-    
+
     public static ArrayList<String> saludos = new ArrayList<>();
 
-    @PayloadRoot(localPart = "SaludarRequest", namespace="https://t4is.uv.mx/saludos")
+    @PayloadRoot(localPart = "SaludarRequest", namespace = "https://t4is.uv.mx/saludos")
     @ResponsePayload
-    public SaludarResponse Saludar( @RequestPayload  SaludarRequest peticion) {
-        SaludarResponse response= new SaludarResponse();
-        response.setRespuesta("Hola "+peticion.getNombre());
+    public SaludarResponse Saludar(@RequestPayload SaludarRequest peticion) {
+        SaludarResponse response = new SaludarResponse();
+        response.setRespuesta("Hola " + peticion.getNombre());
         saludos.add(peticion.getNombre());
         return response;
     }
 
-
-    @PayloadRoot(localPart = "BuscarRequest", namespace="https://t4is.uv.mx/saludos")
+    /**
+     * @param peticion
+     * @return
+     */
+    @PayloadRoot(localPart = "MostrarRequest", namespace = "https://t4is.uv.mx/saludos")
     @ResponsePayload
-    public BuscarResponse Buscar( @RequestPayload  BuscarRequest peticion) {
-        BuscarResponse response= new BuscarResponse();
-        if(peticion.getId() > saludos.size())
-            response.setNombre("El id ingresado es mas grande que la lista");
+    public MostrarResponse Mostrar(@RequestPayload MostrarRequest peticion) {
+        MostrarResponse response = new MostrarResponse();
+        if (peticion.getId() >= saludos.size())
+            response.setNombre("El id no valido");
         else
             response.setNombre(saludos.get(peticion.getId()));
         return response;
     }
-    
-    
+
+    /**
+     * @param peticion
+     * @return
+     */
+    @PayloadRoot(localPart = "EliminarRequest", namespace="https://t4is.uv.mx/saludos")
+    @ResponsePayload
+    public EliminarResponse Eliminar( @RequestPayload  EliminarRequest peticion) {
+        EliminarResponse response= new EliminarResponse();
+        if(peticion.getId() < saludos.size()){
+            response.setNombre("eliminado: " + saludos.get(peticion.getId()));
+            saludos.remove(peticion.getId());
+        }
+        else
+            response.setNombre("El id no valido");
+        return response;
+    }
+
+    /**
+     * @param peticion
+     * @return
+     */
+    @PayloadRoot(localPart = "BuscarRequest", namespace="https://t4is.uv.mx/saludos")
+    @ResponsePayload
+    public BuscarResponse Buscar( @RequestPayload  BuscarRequest peticion) {
+        final BuscarResponse response= new BuscarResponse();
+        int posicion = saludos.indexOf(peticion.getNombre());
+        if(posicion >= 0){
+            response.setNombre("El elemento " + peticion.getNombre() + " está en la lista. En la posición " + posicion);
+        }
+        else
+            response.setNombre("El elemento " + peticion.getNombre() + " NO está en la lista");
+        return response;
+    }
+
 }
-
-

@@ -37,7 +37,7 @@
     <xs:element name="BuscarRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:int" />
+                <xs:element name="nombre" type="xs:string" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
