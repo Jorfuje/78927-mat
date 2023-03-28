@@ -1,6 +1,8 @@
 package mx.uv.practica04;
 
-import java.util.ArrayList;
+import java.io.Console;
+import java.io.ObjectInputStream.GetField;
+import java.util.Optional;
 
 import javax.xml.ws.Response;
 
@@ -10,31 +12,28 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import https.t4is_uv_mx.saludos.BuscarRequest;
-import https.t4is_uv_mx.saludos.BuscarResponse;
+import com.fasterxml.jackson.core.sym.Name;
+
 import https.t4is_uv_mx.saludos.EliminarRequest;
 import https.t4is_uv_mx.saludos.EliminarResponse;
 import https.t4is_uv_mx.saludos.MostrarRequest;
 import https.t4is_uv_mx.saludos.MostrarResponse;
 import https.t4is_uv_mx.saludos.SaludarRequest;
 import https.t4is_uv_mx.saludos.SaludarResponse;
+import https.t4is_uv_mx.saludos.ModificarRequest;
+import https.t4is_uv_mx.saludos.ModificarResponse;
 
 @Endpoint
 public class EndPoint {
-    public static ArrayList<String> saludos = new ArrayList<>();
 
     @Autowired
     private ISaludador iSaludador;
-
-
-    
 
     @PayloadRoot(localPart = "SaludarRequest", namespace = "https://t4is.uv.mx/saludos")
     @ResponsePayload
     public SaludarResponse Saludar(@RequestPayload SaludarRequest peticion) {
         SaludarResponse response = new SaludarResponse();
         response.setRespuesta("Hola " + peticion.getNombre());
-        saludos.add(peticion.getNombre());
 
         // persistencia a la bd
         Saludador saludador = new Saludador();
@@ -44,56 +43,43 @@ public class EndPoint {
         return response;
     }
 
-
-
-
-
-    /**
-     * @param peticion
-     * @return
-     */
-    @PayloadRoot(localPart = "MostrarRequest", namespace = "https://t4is.uv.mx/saludos")
+    @PayloadRoot(localPart = "ModificarRequest", namespace="https://t4is.uv.mx/saludos")
     @ResponsePayload
-    public MostrarResponse Mostrar(@RequestPayload MostrarRequest peticion) {
-        MostrarResponse response = new MostrarResponse();
-        if (peticion.getId() >= saludos.size())
-            response.setNombre("El id no valido");
-        else
-            response.setNombre(saludos.get(peticion.getId()));
+    public ModificarResponse Modificar( @RequestPayload  ModificarRequest peticion) {
+        ModificarResponse response= new ModificarResponse();
+
+        //Saludador saludador = new Saludador();
+        //saludador.setId(peticion.getId());
+        //saludador.setNombre(peticion.getNombre());
+        Optional<Saludador> x = iSaludador.findById(peticion.getId());
+        Saludador y = x.get();
+        y.setNombre(peticion.getNombre());
+        iSaludador.save(y);
+        response.setNombre(y.getId() + ": "+ y.getNombre());
         return response;
     }
 
-    /**
-     * @param peticion
-     * @return
-     */
     @PayloadRoot(localPart = "EliminarRequest", namespace="https://t4is.uv.mx/saludos")
     @ResponsePayload
     public EliminarResponse Eliminar( @RequestPayload  EliminarRequest peticion) {
         EliminarResponse response= new EliminarResponse();
-        if(peticion.getId() < saludos.size()){
-            response.setNombre("eliminado: " + saludos.get(peticion.getId()));
-            saludos.remove(peticion.getId());
-        }
-        else
-            response.setNombre("El id no valido");
+        Optional<Saludador> x = iSaludador.findById(peticion.getId());
+        Saludador y = x.get();
+        iSaludador.deleteById(peticion.getId());
+        response.setNombre("Eliminado: "+ y.getNombre());
         return response;
     }
 
-    /**
-     * @param peticion
-     * @return
-     */
-    @PayloadRoot(localPart = "BuscarRequest", namespace="https://t4is.uv.mx/saludos")
+    @PayloadRoot(localPart = "MostrarRequest", namespace = "https://t4is.uv.mx/saludos")
     @ResponsePayload
-    public BuscarResponse Buscar( @RequestPayload  BuscarRequest peticion) {
-        final BuscarResponse response= new BuscarResponse();
-        int posicion = saludos.indexOf(peticion.getNombre());
-        if(posicion >= 0){
-            response.setNombre("El elemento " + peticion.getNombre() + " está en la lista. En la posición " + posicion);
+    public MostrarResponse Mostrar(@RequestPayload MostrarRequest peticion) {
+        MostrarResponse response = new MostrarResponse();
+        String listaString="id:  nombre\n";
+        Iterable<Saludador> saludadores = iSaludador.findAll();
+        for (Saludador x : saludadores){
+            listaString = listaString + x.getId() + ": " + x .getNombre() + "\n";
         }
-        else
-            response.setNombre("El elemento " + peticion.getNombre() + " NO está en la lista");
+        response.setNombre(listaString);
         return response;
     }
 
