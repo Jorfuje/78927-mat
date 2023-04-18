@@ -96,14 +96,18 @@ public class EndPoint {
     @ResponsePayload
     public MostrarResponse Mostrar(@RequestPayload MostrarRequest peticion) {
         MostrarResponse response = new MostrarResponse();
-        String listaString="";
-
+        //String listaString="";
+        JsonObject datos = new JsonObject();
         Iterable<Inventariador> inventariadores = iInventariador.findAll();
         for (Inventariador x : inventariadores){
-
-            listaString = listaString + "id: " + x.getId() + ", nombre: " + x.getNombre() + ", categoria: " + x.getCategoria() +", cantidad: " + x.getCantidad() +"\n";
+            JsonObject datosObject = new JsonObject();
+            //listaString = listaString + "id: " + x.getId() + ", nombre: " + x.getNombre() + ", categoria: " + x.getCategoria() +", cantidad: " + x.getCantidad() +"\n";
+            datosObject.put("nombre", x.getNombre());
+            datosObject.put("categoria", x.getCategoria());
+            datosObject.put("cantidad", x.getCantidad());
+            datos.put(x.getId().toString(), datosObject);
         }
-        response.setNombre(listaString);
+        response.setNombre(datos.toString());
         return response;
     }
 
