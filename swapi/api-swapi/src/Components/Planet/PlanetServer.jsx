@@ -1,5 +1,3 @@
-const API_URL = "https://swapi.dev/api/planets";
-
 export const listPlanets = async () => {
-    return await fetch(API_URL);
+    return await fetch('https://swapi.dev/api/planets/?format=json');
 };

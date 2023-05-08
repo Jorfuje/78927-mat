@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SpringBootApplication
 public class DemoApplication {
+
+	Persona personita;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -61,6 +64,17 @@ public class DemoApplication {
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	public String saludarpost(){
 		return "Mensaje de tipo post";
+	}
+
+	@RequestMapping ( value = "/saludarPost", method = RequestMethod.POST)
+    public String saludarPost(@RequestBody Persona persona) {
+		personita = persona;
+        return "Hola: " + persona.getNombre();
+    }
+
+	@RequestMapping("/obtener")
+	public Persona obtener(){
+		return personita;
 	}
 
 }

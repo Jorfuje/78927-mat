@@ -5,6 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 // Components:
 import PlanetList from "./Components/Planet/PlanetList";
 
+import "bootstrap/dist/css/bootstrap.min.css"
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

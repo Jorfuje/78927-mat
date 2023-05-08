@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import * as  PlanetServer from './PlanetServer';
+import PlanetItem from "./PlanetItem";
 
 const PlanetList = () => {
     const [planets, setPlanets] = useState([]);
 
-    const listPlanets = async () => {
+    /*const listPlanets = async () => {
         try {
             const res = await PlanetServer.listPlanets();
             const data = await res.json();
@@ -14,16 +14,25 @@ const PlanetList = () => {
         } catch (error) {
             console.log(error);
         }
-    };
+    };*/
 
-    useEffect(() => {
-        listPlanets();
-    }, []);
+    useEffect(()=> {
+          async function fetchPlanets(){
+            let res = await fetch('https://swapi.dev/api/planets/?format=json');
+            let data = await res.json();
+            setPlanets(data.results);
+        
+          }
+    
+          fetchPlanets();
+    
+      }, [])
 
     return (
         <div>
             {planets.map((planets) => (
-                <h2>{planets.count}</h2>
+                <PlanetItem data={planets.id}/>
+                
             ))}
         </div>
     );
